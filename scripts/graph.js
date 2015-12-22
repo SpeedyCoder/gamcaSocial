@@ -14,6 +14,7 @@ function paintGraph(selectedStudents){
 	var links = [];
 
 	for(var i = 0; i < selectedStudents.length; i++) {
+		console.log(selectedStudents[i]);
 		var node = {
 			label : selectedStudents[i].name,
 			id: selectedStudents[i].id
@@ -51,7 +52,7 @@ function paintGraph(selectedStudents){
 			links.push({
 			source : i1,
 			target : i2,
-			weight : 0 //Math.random()
+			weight : 1 //Math.random()
 		});
 		}
 	};

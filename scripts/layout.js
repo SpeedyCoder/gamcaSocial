@@ -55,15 +55,49 @@ $('#show-classes').on('click', function() {
 
 $('#show-students').on('click', function() {
 	var selectedStudents = getActiveListElements("#student-list");
+	var showAllRelations = $('#show-all-relations').children()[1].checked;
+
+	if (showAllRelations){
+		selectedStudents = addAllRelations(selectedStudents);
+	} else {
+		var showAll = $('#show-whole-graph').children()[1].checked;
+		if (showAll) {
+			selectedStudents = addAllAccesible(selectedStudents);
+		}
+	}
+
     paintGraph(getStudents(selectedStudents));
 });
+
+$('#show-whole-graph').on('click', function(){
+	if ($('#show-all-relations').children()[1].checked){
+		$('#show-all-relations').click();
+	};
+});
+
+$('#show-all-relations').on('click', function(){
+	if ($('#show-whole-graph').children()[1].checked){
+		$('#show-whole-graph').click();
+	};
+});
+
 var allClassesSelected = false;
 $('#select-all-classes').on('click', function() {
+	allClassesSelected = !allClassesSelected;
     $('.class').each(function(){
-    	$(this).prop('checked', !allClassesSelected);
+    	$(this).prop('checked', allClassesSelected);
     	$(this).triggerHandler('change');
     });
-    allClassesSelected = !allClassesSelected;
+    
+});
+
+var allStudentsSelected = false;
+$('#select-all-students').on('click', function() {
+	allStudentsSelected = !allStudentsSelected;
+    $('.student').each(function(){
+    	$(this).prop('checked', allStudentsSelected);
+    	$(this).triggerHandler('change');
+    });
 });
 
 $('#select-classes').on('click', function() {
